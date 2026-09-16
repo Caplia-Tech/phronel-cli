@@ -1,0 +1,33 @@
+{
+  "name": "phronel",
+  "version": "0.1.0",
+  "description": "Phronel on the command line: run a company, get the decision back. Built for AI agents and humans alike.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "phronel": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caplia-Tech/caplia-phronel.git",
+    "directory": "cli"
+  },
+  "homepage": "https://phronel.ai",
+  "keywords": ["phronel", "caplia", "cli", "ai-agents", "venture", "due-diligence", "decision-intelligence"],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "tsc",
+    "test": "npm run build && node --test test/"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.6.2"
+  }
+}
