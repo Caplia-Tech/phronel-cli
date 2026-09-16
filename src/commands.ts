@@ -377,6 +377,18 @@ export const COMMANDS: CommandDef[] = [
     },
   },
   {
+    name: "webhook-secret",
+    summary: "The secret that signs run webhooks (x-phronel-signature); --rotate replaces it",
+    args: [],
+    flags: [{ name: "rotate", type: "boolean", desc: "Replace the secret; update your receiver straight after" }],
+    ops: [{ method: "GET", path: "/v1/webhook-secret" }, { method: "POST", path: "/v1/webhook-secret/rotate" }],
+    async run(ctx) {
+      const rotate = boolFlag(ctx.flags, "rotate");
+      printData(await req(ctx, rotate ? { method: "POST", path: "/v1/webhook-secret/rotate" } : { path: "/v1/webhook-secret" }), ctx.json);
+      if (rotate) note("secret rotated; deliveries from now on are signed with it");
+    },
+  },
+  {
     name: "credits",
     summary: "Free runs left this month and paid credit balance",
     args: [],

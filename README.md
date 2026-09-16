@@ -22,6 +22,7 @@ live keys to production.
 | `deck add <company_id> f.pdf` or `--url u` | attach a deck, queues CRI and thesis fit |
 | `theses list`, `theses create <name> --criterion "Team:4:..."`, `theses delete <id>` | theses for fit scoring |
 | `credits`, `pricing` | allowance and ladder |
+| `webhook-secret [--rotate]` | the secret behind `x-phronel-signature` on run webhooks |
 | `skill --install` | write an agent skill file to `.claude/skills/phronel/` |
 
 JSON on stdout whenever piped (`--json` forces it), structured errors on stderr with
