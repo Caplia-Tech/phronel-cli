@@ -15,7 +15,7 @@ live keys to production.
 | Command | Does |
 |---|---|
 | `login`, `whoami` | store and verify the key |
-| `run <company> [--deck f.pdf] [--deck-url u] [--webhook u] [--wait]` | start a run; `--wait` polls to complete |
+| `run <company> [--domain d] [--ch n] [--deck f.pdf] [--deck-url u] [--webhook u] [--wait]` | start a run; `--wait` polls to complete; `--domain`/`--ch` pin the company when a name alone is ambiguous |
 | `runs list`, `runs get <id> [--wait]` | runs, newest first; reading a run advances it |
 | `scores <company_id>` | P15, CRI, thesis fit, jobs in flight |
 | `report <company_id> [--html] [--out f] [--regenerate]` | the decision report |

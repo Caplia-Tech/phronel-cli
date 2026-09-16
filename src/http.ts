@@ -11,6 +11,7 @@ const FIXES: Record<string, string> = {
   insufficient_credits: "No free runs left this month and no paid credits. Top up at https://phronel.ai/app/billing.",
   not_found: "Check the id. List commands (e.g. `phronel runs list`) show valid ids.",
   bad_request: "The request was rejected. Re-check the flags and values you passed.",
+  company_unresolved: "Nothing on the open web identifies that name. Run again with --domain <website> or --ch <Companies House number>; no credit was used.",
 };
 
 export interface MultipartPayload {

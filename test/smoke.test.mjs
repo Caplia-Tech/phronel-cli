@@ -45,6 +45,7 @@ function startMock() {
     if (req.method === "POST" && url.pathname === "/v1/runs") {
       const body = JSON.parse(raw.toString());
       if (body.query === "broke.com") return send(402, { error: { code: "insufficient_credits", message: "No runs left", request_id: "req_test_1" } });
+      if (body.query === "Prime Time" && !body.domain) return send(400, { error: { code: "company_unresolved", message: "Could not identify", request_id: "req_test_1" } });
       return send(202, { id: RUN, status: "enrolled", status_message: "Collecting", company: { id: COMPANY, name: "Monzo" }, credit_source: "free", input: body });
     }
     if (url.pathname === `/v1/runs/${RUN}`) {
@@ -102,14 +103,22 @@ test("run --wait polls to completion and deck upload is exact-length multipart",
   }
 });
 
-test("insufficient credits exits 1 with the fix", async () => {
-  const { server, url } = await startMock();
+test("insufficient credits and an unresolved name exit 1 with the fix; --domain and --ch reach the body", async () => {
+  const { server, url, requests } = await startMock();
   try {
     const r = await runCli(["run", "broke.com", "--json"], { PHRONEL_API_KEY: TEST_KEY, PHRONEL_API_URL: url });
     assert.equal(r.code, 1);
     const err = JSON.parse(r.stderr);
     assert.equal(err.error.code, "insufficient_credits");
     assert.match(err.fix, /phronel.ai\/app\/billing/);
+    const bare = await runCli(["run", "Prime Time", "--json"], { PHRONEL_API_KEY: TEST_KEY, PHRONEL_API_URL: url });
+    assert.equal(bare.code, 1);
+    assert.match(JSON.parse(bare.stderr).fix, /--domain/);
+    const pinned = await runCli(["run", "Prime Time", "--domain", "primetime.tv", "--ch", "12345678", "--json"], { PHRONEL_API_KEY: TEST_KEY, PHRONEL_API_URL: url });
+    assert.equal(pinned.code, 0, pinned.stderr);
+    const sent = JSON.parse(requests.filter((q) => q.method === "POST" && q.path === "/v1/runs").pop().body.toString());
+    assert.equal(sent.domain, "primetime.tv");
+    assert.equal(sent.companies_house_number, "12345678");
   } finally {
     server.close();
   }

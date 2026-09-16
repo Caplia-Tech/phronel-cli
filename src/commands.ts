@@ -187,6 +187,8 @@ export const COMMANDS: CommandDef[] = [
     args: [{ name: "company", required: true, desc: "Name, website/domain, or Companies House number" }],
     flags: [
       { name: "description", type: "string", desc: "What the company does (helps entity matching)" },
+      { name: "domain", type: "string", desc: "The company's website, when the name alone is ambiguous (e.g. monzo.com)" },
+      { name: "ch", type: "string", desc: "Companies House number (8 digits or 2 letters + 6 digits)" },
       { name: "deck", type: "string", desc: "Path to the pitch deck PDF; uploaded after the run starts (unlocks CRI and thesis fit)" },
       { name: "deck-url", type: "string", desc: "Public https URL of the pitch deck PDF" },
       { name: "webhook", type: "string", desc: "https URL to POST the run to when it completes" },
@@ -199,6 +201,10 @@ export const COMMANDS: CommandDef[] = [
       const body: Record<string, unknown> = { query };
       const description = strFlag(ctx.flags, "description");
       if (description) body.description = description;
+      const domain = strFlag(ctx.flags, "domain");
+      if (domain) body.domain = domain;
+      const ch = strFlag(ctx.flags, "ch");
+      if (ch) body.companies_house_number = ch;
       const deckUrl = strFlag(ctx.flags, "deck-url");
       if (deckUrl) body.deck_url = deckUrl;
       const webhook = strFlag(ctx.flags, "webhook");
