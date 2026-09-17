@@ -16,11 +16,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Caplia-Tech/caplia-phronel.git",
-    "directory": "cli"
+    "url": "git+https://github.com/Caplia-Tech/phronel-cli.git"
   },
   "homepage": "https://phronel.ai",
-  "keywords": ["phronel", "caplia", "cli", "ai-agents", "venture", "due-diligence", "decision-intelligence"],
+  "keywords": [
+    "phronel",
+    "caplia",
+    "cli",
+    "ai-agents",
+    "venture",
+    "due-diligence",
+    "decision-intelligence"
+  ],
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsc",
@@ -29,5 +36,8 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "typescript": "^5.6.2"
+  },
+  "bugs": {
+    "url": "https://github.com/Caplia-Tech/phronel-cli/issues"
   }
 }

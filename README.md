@@ -9,6 +9,13 @@ npx phronel run monzo.com --wait       # P15 market waves + decision report, one
 npx phronel run "Acme Ltd" --deck ./deck.pdf --wait   # adds CRI readiness and thesis fit
 ```
 
+Install it instead of `npx`:
+
+```bash
+brew tap caplia-tech/tap && brew install phronel   # Homebrew
+npm install -g phronel                              # npm
+```
+
 Three runs a month are free. Test keys (`cap_inv_test_*`) route to the sandbox,
 live keys to production.
 
@@ -37,5 +44,8 @@ server at `https://mcp.phronel.ai`.
 npm ci && npm test      # builds with tsc, then node --test against a mock API
 ```
 
-Publishing: bump `version.ts` + `package.json`, `npm publish` (2FA), then update
-the Homebrew formula in `Caplia-Tech/homebrew-tap`.
+Source of truth is `cli/` in the private `Caplia-Tech/caplia-phronel` monorepo;
+it is mirrored to the public `Caplia-Tech/phronel-cli` on every push to main.
+Publishing: bump `version.ts` + `package.json`, `npm publish` (2FA), tag
+`cli-vX.Y.Z`, then update url + sha256 in `Caplia-Tech/homebrew-tap`
+`Formula/phronel.rb`.
